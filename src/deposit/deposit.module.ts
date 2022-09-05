@@ -2,12 +2,12 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CoinBaseModule } from 'src/coinbase/coinbase.module';
-import { CoinBaseService } from 'src/coinbase/coinbase.service';
 import { InvoiceModule } from 'src/invoice/invoice.module';
 import { WalletModule } from 'src/wallet/wallet.module';
 import { DepositController } from './deposit.controller';
 import { Deposit } from './deposit.entity';
 import { DepositService } from './deposit.service';
+import { DepositTotal } from './depositTotal.entity';
 
 
 @Module({
@@ -17,7 +17,7 @@ import { DepositService } from './deposit.service';
     ConfigService,
   ],
   imports: [
-    TypeOrmModule.forFeature([Deposit]),
+    TypeOrmModule.forFeature([Deposit, DepositTotal]),
     CoinBaseModule,
     InvoiceModule,
     WalletModule,

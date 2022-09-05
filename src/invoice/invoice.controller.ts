@@ -1,26 +1,18 @@
 import {
     Body,
     Controller,
-    Delete,
-    Get,
-    NotFoundException,
-    Param,
     Post,
-    Put,
-    Query,
-    Req,
     Session,
-    Headers,
-    UseGuards,
   } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { InvoiceService } from 'src/invoice/invoice.service';
 import { LocalPriceDto } from './dto/invoice.dto';
 
-
+@ApiTags('Invoice')
 @Controller('/invoice')
 // @Serialize(UserDto)
 export class InvoiceController {
-    constructor(private recieptService: InvoiceService) {}
+    constructor(private invoiceService: InvoiceService) {}
   
     @Post()
     async create(@Body() body: LocalPriceDto, @Session() session: any) {
@@ -36,7 +28,7 @@ export class InvoiceController {
         pricing_type: 'fixed_price'    
       }
    
-      const reciept = await this.recieptService.create(charge);
+      const reciept = await this.invoiceService.create(charge);
       return reciept;
     }
 

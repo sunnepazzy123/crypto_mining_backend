@@ -1,0 +1,58 @@
+
+
+
+### WhoAmI
+GET http://localhost:3000/auth/profile
+
+
+### SignOut a user
+POST http://localhost:3000/auth/signOut
+
+
+### Create a new User
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "sunday@gmazxil.comekhis",
+    "password": "12345",
+    "firstName": "sunday",
+    "lastName": "fgh",
+    "username": "tfxhj"
+}
+
+### SignIn a user
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "sunday@gmail.comeis",
+    "password": "12345"
+}
+
+### SignOut a user
+POST http://localhost:3000/auth/logout
+Content-Type: application/json
+
+
+
+### Get all users
+GET http://localhost:3000/auth/users
+
+
+### Get a User
+GET http://localhost:3000/auth/users/54751861-102f-45b4-927f-8cf36a385f0b
+
+
+### Update a user
+PUT http://localhost:3000/auth/users/1
+Content-Type: application/json
+
+{
+    "email": "sun@gmail.coml",
+    "password": "26156"
+}
+
+
+### Update a user
+DELETE http://localhost:3000/auth/users/434

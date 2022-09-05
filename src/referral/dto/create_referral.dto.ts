@@ -1,10 +1,10 @@
-import { IsPositive, IsString } from "class-validator";
+import { IsString } from "class-validator";
 
 export class CreateReferralDto {
     @IsString()
-    userId: string;
+    user: string;
 
     @IsString()
-    referredById: string;
+    referredBy: string;
 
 }

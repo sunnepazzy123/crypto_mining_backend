@@ -19,14 +19,14 @@ export class CoinBaseService {
   }
 
 
-createCharge(data) {
-    try {
-      return this.resources.Charge.create(data)
-    } catch (error) {
-      throw new BadRequestException('Merchant charge credential invalid');
-    }
+  async createCharge(data) {
+      try {
+        return await this.resources.Charge.create(data)
+      } catch (error) {
+        throw new BadRequestException('Merchant charge credential invalid');
+      }
 
-  }
+    }
 
  event(body: any, headers: string) {
     try {

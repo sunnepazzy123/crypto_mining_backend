@@ -2,16 +2,16 @@ import {
     Body,
     Controller,
     Post,
-
     Headers,
   } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ApiTags } from '@nestjs/swagger';
 import { CoinBaseService } from 'src/coinbase/coinbase.service';
 import { Invoice } from 'src/invoice/invoice.entity';
 import { InvoiceService } from 'src/invoice/invoice.service';
 import { WalletService } from 'src/wallet/wallet.service';
 import { DepositService } from './deposit.service';
 
+@ApiTags('Deposit')
 @Controller('/deposit')
 export class DepositController {
     constructor(
@@ -22,21 +22,21 @@ export class DepositController {
          ) {}
   
     @Post()
-    async create(@Body() body: any, @Headers('x-cc-webhook-signature') header: any) {
+    async create(@Body() body: any, @Headers('x-cc-webhook-signature') header: string) {
 
         const event = this.coinbaseService.event(body, header)
         let invoice: Invoice
         if(event.type === 'charge:confirmed') {
             invoice = await this.invoiceService.findOne(event.data.id);
             if(invoice.status === 'created'){
-                const wallet = await this.walletService.findOne(invoice.userId)
+                const wallet = await this.walletService.findOne(invoice.userId);
                 const walletLedger = {
                         debit: 0,
                         credit: invoice.amount,
                         balance: wallet.balance + invoice.amount,
-                        reference: invoice.code,
                         remark: `Alert Deposit of $${invoice.amount} to fund Wallet`,
                         user: invoice.userId,
+                        userId: invoice.userId
                     };
             await this.walletService.create(walletLedger);
             invoice.status = 'success';
@@ -44,6 +44,7 @@ export class DepositController {
     
             const depositSlip = {
                         userId: invoice.userId,
+                        user: invoice.userId,
                         amount: invoice.amount,
                         type: "USD",
                         status: "success",

@@ -1,10 +1,6 @@
 import {
     Entity,
     Column,
-    AfterInsert,
-    AfterUpdate,
-    AfterRemove,
-    BeforeInsert,
   } from 'typeorm';
 
 import Model from 'src/entity/index.entity';
@@ -13,12 +9,15 @@ import Model from 'src/entity/index.entity';
 export class Deposit extends Model
    {
     @Column()
-    userId: string;
+    user: string;
 
     @Column()
+    userId: string;
+
+    @Column({type: 'money'})
     amount: number;
   
-    @Column({unique: true})
+    @Column()
     reference: string;
    
     @Column()
@@ -27,25 +26,5 @@ export class Deposit extends Model
     @Column()
     type: string;
 
-    @BeforeInsert()
-    beforeInsert() {
-      console.log('Before Insert');
-  
-    }
-  
-    @AfterInsert()
-    logInsert() {
-      console.log('Inserted User id ', this._id);
-    }
-  
-    @AfterUpdate()
-    logUpdate() {
-      console.log('Update User id ', this._id);
-    }
-  
-    @AfterRemove()
-    logDelete() {
-      console.log('Remove User id', this._id);
-    }
   }
   

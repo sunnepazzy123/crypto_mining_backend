@@ -11,9 +11,16 @@ export class ReferralService {
 
   }
 
-  create(body: CreateReferralDto) {
+  async save(body: CreateReferralDto) {
         const referral = this.repo.create(body);
-        return this.repo.save(referral)
+        return await this.repo.save(referral)
   }
+
+  async findOneByUser(id: string) {
+    const referral = await this.repo.findOne({
+      where: {user: id}
+    });
+    return referral;
+}
 
 }

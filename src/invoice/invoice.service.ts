@@ -27,7 +27,6 @@ export class InvoiceService {
 
     const newInvoice = {
         userId: body.userId,
-        email: body.email,
         coinbaseCode: invoice.code,
         amount: body.local_price.amount,
         remark: body.description,
@@ -35,11 +34,11 @@ export class InvoiceService {
         invoiceId: invoice.id
     }
     const invoiceCreate = this.repo.create(newInvoice)
-    return this.repo.save(invoiceCreate);
+    return await this.repo.save(invoiceCreate);
   }
 
-  findOne(invoiceId: string) {   
-    const reciept = this.repo.findOne({
+  async findOne(invoiceId: string) {   
+    const reciept = await this.repo.findOne({
         where: {
           invoiceId,
           }
@@ -50,4 +49,7 @@ export class InvoiceService {
     return reciept;
   }
 
+  async find() {   
+    return await this.repo.find();
+  }
 }

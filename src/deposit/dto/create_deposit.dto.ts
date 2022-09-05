@@ -2,6 +2,9 @@ import { IsPositive, IsString } from "class-validator";
 
 export class CreateDepositDto {
     @IsString()
+    user: string;
+
+    @IsString()
     userId: string;
 
     @IsPositive()

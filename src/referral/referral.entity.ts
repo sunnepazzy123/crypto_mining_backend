@@ -5,18 +5,22 @@ import {
     AfterUpdate,
     AfterRemove,
     BeforeInsert,
+    OneToOne,
+    JoinColumn,
   } from 'typeorm';
 
 import Model from 'src/entity/index.entity';
+import { User } from 'src/users/users.entity';
 
 @Entity()
 export class Referral extends Model
    {
-    @Column()
-    userId: string;
+    @OneToOne(() => User, (user) => user.referral)
+    @JoinColumn()
+    user: string;
 
     @Column()
-    referredById: string;
+    referredBy: string;
   
     @BeforeInsert()
     beforeInsert() {
@@ -26,17 +30,14 @@ export class Referral extends Model
   
     @AfterInsert()
     logInsert() {
-      console.log('Inserted User id ', this._id);
     }
   
     @AfterUpdate()
     logUpdate() {
-      console.log('Update User id ', this._id);
     }
   
     @AfterRemove()
     logDelete() {
-      console.log('Remove User id', this._id);
     }
   }
   

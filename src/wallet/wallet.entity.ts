@@ -5,27 +5,31 @@ import {
     AfterUpdate,
     AfterRemove,
     BeforeInsert,
+    ManyToOne,
+    JoinColumn,
   } from 'typeorm';
 import Model from 'src/entity/index.entity';
+import { User } from 'src/users/users.entity';
 
-@Entity()
+@Entity({name: 'wallet'})
 export class Wallet extends Model
    {
+    @ManyToOne(() => User, entity => entity.wallet)
+    @JoinColumn()
+    user: string;
+    
     @Column()
-    userId: string;
-
-    @Column()
+    userId: string
+    
+    @Column({type: 'money'})
     debit: number;
 
-    @Column()
+    @Column({type: 'money'})
     credit: number;
 
-    @Column()
+    @Column({type: 'money'})
     balance: number;
   
-    @Column({unique: true})
-    reference: string;
-   
     @Column()
     remark: string;
 
@@ -37,17 +41,15 @@ export class Wallet extends Model
   
     @AfterInsert()
     logInsert() {
-      console.log('Inserted User id ', this._id);
+
     }
   
     @AfterUpdate()
     logUpdate() {
-      console.log('Update User id ', this._id);
     }
   
     @AfterRemove()
     logDelete() {
-      console.log('Remove User id', this._id);
     }
   }
   

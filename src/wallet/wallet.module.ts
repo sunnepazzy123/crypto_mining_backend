@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { WalletController } from './wallet.controller';
 import { Wallet } from './wallet.entity';
 import { WalletService } from './wallet.service';
 
 
 @Module({
+  controllers: [WalletController],
   providers: [
     WalletService,
   ],
@@ -14,4 +16,8 @@ import { WalletService } from './wallet.service';
   exports: [WalletService]
 
 })
-export class WalletModule {}
+export class WalletModule {
+  // configure(consumer: MiddlewareConsumer){
+  //   consumer.apply(CurrentUserMiddleware).forRoutes('*')
+  // }
+}
