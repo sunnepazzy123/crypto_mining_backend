@@ -6,6 +6,8 @@ import { WithDraw } from './withdraw.entity';
 import { HelperModule } from 'src/helpers/helpers.module';
 import { VaultModule } from 'src/vault/vault.module';
 import { WalletModule } from 'src/wallet/wallet.module';
+import { WithDrawTotal } from './withdrawalTotal.entity';
+import { WithDrawAnalytics } from './withdrawAnalytics.entity';
 
 
 @Module({
@@ -14,7 +16,7 @@ import { WalletModule } from 'src/wallet/wallet.module';
     WithDrawService,
   ],
   imports: [
-    TypeOrmModule.forFeature([WithDraw]),
+    TypeOrmModule.forFeature([WithDraw, WithDrawTotal, WithDrawAnalytics]),
     HelperModule,
     VaultModule,
     WalletModule,

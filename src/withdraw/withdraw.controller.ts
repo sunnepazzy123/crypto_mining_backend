@@ -40,8 +40,8 @@ export class WithDrawController {
     @Post('/create_withdrawal')
     async createWithdrawal(@Body() body: CreateWithdrawalDto) {
       const mergedBody = this.helpersService.mergeObject(body, {user: body.user as string})
-      const withdrawal = this.withdrawService.create(mergedBody)
-      return withdrawal;
+      // const withdrawal = this.withdrawService.create(mergedBody)
+      return {};
     }
 
   

@@ -20,6 +20,9 @@ export class Referral extends Model
     user: string;
 
     @Column()
+    userId: string;
+
+    @Column()
     referredBy: string;
   
     @BeforeInsert()

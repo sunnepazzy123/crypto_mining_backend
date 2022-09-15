@@ -58,8 +58,7 @@ export class VaultService {
   async generateToken(body: TokenDto) {
     const payload = {
             id: body.id,
-            role: body.role, 
-            username: body.email
+            role: body.role,
           }
     return await this.jwtService.signAsync(payload)
   }

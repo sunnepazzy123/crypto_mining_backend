@@ -22,6 +22,7 @@ import { WithDrawAnalytics } from 'src/withdraw/withdrawAnalytics.entity';
 import { WithDrawTotal } from 'src/withdraw/withdrawalTotal.entity';
 import { WalletTotal } from 'src/wallet/walletTotal.entity';
 import { AnouncementView } from 'src/anouncement/anouncementView.entity';
+import { WithDraw } from 'src/withdraw/withdraw.entity';
 
 
 enum RoleEnumType {
@@ -79,6 +80,10 @@ export class User extends Model
     @OneToMany(() => WithDrawAnalytics, entity => entity.user)
     @JoinColumn()
     withdrawAnalytics: WithDrawAnalytics[];
+
+    @OneToMany(() => WithDraw, entity => entity.user)
+    @JoinColumn()
+    withdraw: WithDraw[];
   
     @OneToOne(() => WithDrawTotal, entity => entity.user)
     @JoinColumn()

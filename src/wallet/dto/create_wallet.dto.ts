@@ -1,5 +1,6 @@
 import { Expose } from 'class-transformer';
 import { IsNumber, IsString } from 'class-validator';
+import { User } from 'src/users/users.entity';
 
 export class CreateWalletDto {
   @Expose()

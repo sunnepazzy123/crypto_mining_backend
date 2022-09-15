@@ -41,7 +41,7 @@ export class WalletService {
 async getLastWallet(userId: string) {
       const wallet = await this.repo.findOne({
         where: {userId},
-        order: {id: 'DESC'},
+        order: {created_at: 'DESC'},
       })
       
       return wallet;
@@ -60,6 +60,7 @@ async debit(amount: number, userId: string) {
             balance: wallet.balance - amount,
             remark: `Debit Alert of $${amount} from your fund Wallet`,
             user: userId,
+            userId
           };
     const debitLedger = this.repo.create(walletLedger);
     return await this.repo.save(debitLedger);
@@ -76,6 +77,7 @@ async credit(amount: number, userId: string) {
         balance: wallet.balance + amount,
         remark: `Credit Alert of $${amount} to your fund Wallet`,
         user: userId,
+        userId
       };
       const debitLedger = this.repo.create(walletLedger);
       return await this.repo.save(debitLedger);

@@ -17,6 +17,8 @@ export class CurrentUserMiddleware implements NestMiddleware {
     async use(req: Request, res: Response, next: NextFunction) {
         //@ts-ignore
         const { id } = req.user || {}
+        //@ts-ignore
+        console.log(await this.vaultService.decodeToken(req.session.user), "rere")
         if(id) {
             const user = await this.userService.findOne(id)
         //@ts-ignore

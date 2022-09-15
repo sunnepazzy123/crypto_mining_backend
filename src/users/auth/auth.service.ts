@@ -3,6 +3,8 @@ import { UsersService } from '../users.service';
 import { CreateUserDto } from '../dto/create_user.dto';
 import { randomBytes, scrypt as _scrypt  } from 'crypto';
 import { promisify } from 'util';
+import { UserEntityAttrDto } from '../dto/user_entity_attr_dto';
+import { User } from '../users.entity';
 
 
 const scrypt = promisify(_scrypt);
@@ -15,11 +17,11 @@ export class AuthService {
   ) {}
 
   async register(body: CreateUserDto) {
-    const userFound = await this.userService.findByAttributes({email: body.email});    
+    const userFound = await this.userService.findByAttributes({email: body.email} as UserEntityAttrDto);    
     if (userFound) {
         throw new BadRequestException('User already exist');
     }
-    const username = await this.userService.findByAttributes({username: body.username});
+    const username = await this.userService.findByAttributes({username: body.username} as UserEntityAttrDto);
     if (username) {
         throw new BadRequestException('Username already exist');
     }
@@ -35,8 +37,8 @@ export class AuthService {
       return user;
   }
   
-  async login(body: {email: string, password: string}): Promise<any> {
-    const user = await this.userService.findByAttributes({email: body.email});
+  async login(body: {email: string, password: string}): Promise<User> {
+    const user = await this.userService.findByAttributes({email: body.email} as UserEntityAttrDto);
     if (!user) {
       throw new NotFoundException('User not found');
     }

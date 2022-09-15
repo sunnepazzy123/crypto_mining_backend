@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PackageService } from 'src/package/package.service';
 import { ReferralService } from 'src/referral/referral.service';
+import { UserEntityAttrDto } from 'src/users/dto/user_entity_attr_dto';
 import { UsersService } from 'src/users/users.service';
 import { CreateWalletDto } from 'src/wallet/dto/create_wallet.dto';
 import { WalletService } from 'src/wallet/wallet.service';
@@ -26,7 +27,7 @@ export class JobService {
 
     const referral = await this.referralService.findOneByUser(p.user.id);
     const wallet = await this.walletService.getLastWallet(p.user.id);
-    const userWhoReferredYou = await this.userService.findByAttributes({username: referral.referredBy});
+    const userWhoReferredYou = await this.userService.findByAttributes({username: referral.referredBy} as UserEntityAttrDto);
     const walletReferral = await this.walletService.getLastWallet(userWhoReferredYou.id);
 
     const packageStartDate = new Date(p.created_at);

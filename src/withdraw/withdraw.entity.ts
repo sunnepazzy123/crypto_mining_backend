@@ -14,7 +14,7 @@ import { User } from 'src/users/users.entity';
 @Entity()
 export class WithDraw extends Model
    {
-    @ManyToOne(() => User, (user) => user.vault)
+    @ManyToOne(() => User, (entity) => entity.withdraw)
     @JoinColumn()
     user: string;
 

@@ -7,6 +7,7 @@ import { WalletModule } from 'src/wallet/wallet.module';
 import { DepositController } from './deposit.controller';
 import { Deposit } from './deposit.entity';
 import { DepositService } from './deposit.service';
+import { DepositAnalytics } from './depositAnalytics.entity';
 import { DepositTotal } from './depositTotal.entity';
 
 
@@ -17,7 +18,7 @@ import { DepositTotal } from './depositTotal.entity';
     ConfigService,
   ],
   imports: [
-    TypeOrmModule.forFeature([Deposit, DepositTotal]),
+    TypeOrmModule.forFeature([Deposit, DepositTotal, DepositAnalytics]),
     CoinBaseModule,
     InvoiceModule,
     WalletModule,

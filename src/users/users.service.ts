@@ -5,12 +5,7 @@ import { WalletService } from 'src/wallet/wallet.service';
 import { Repository, } from 'typeorm';
 import { CreateUserDto } from './dto/create_user.dto';
 import { User } from './users.entity';
-
-interface IUserAttr {
-  email?: string,
-  username?: string,
-  uuid?: string
-}
+import { UserEntityAttrDto } from './dto/user_entity_attr_dto';
 
 @Injectable()
 export class UsersService {
@@ -36,6 +31,7 @@ export class UsersService {
     if(body.referredBy) {
       const referral = {
         user: newUser.id,
+        userId: newUser.id,
         referredBy: body.referredBy
       };
       await this.referralService.save(referral);
@@ -52,20 +48,20 @@ export class UsersService {
     });
   }
 
-  async findOne(uuid: string) {
-    if (!uuid) {
+  async findOne(id: string) {
+    if (!id) {
       return null;
     }
     try {
-       return await this.repo.findOne({ where: { uuid } });
+       return await this.repo.findOne({ where: { id } });
     } catch (_) {
       throw new NotFoundException('Invalid Id')
     }
 
   }
 
-  async findByAttributes(body: IUserAttr) {
-    return await this.repo.findOne({ where: body });
+  findByAttributes(body: UserEntityAttrDto) {
+    return this.repo.findOne({ where: body });
   }
 
   async update(id: string, attrs: Partial<User>) {

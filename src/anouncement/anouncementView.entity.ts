@@ -20,7 +20,7 @@ export class AnouncementView extends Model
     @Column()
     userId: string
 
-    @Column({array: true, default: []})
+    @Column('simple-array', {nullable: true})
     views: string[]
   
     @BeforeInsert()
